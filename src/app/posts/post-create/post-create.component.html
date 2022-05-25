@@ -1,1 +1,4 @@
-<h1>Hello World</h1>
+<textarea (keyup)="onKey($event)" rows="6" [value]="'test'"></textarea>
+<hr />
+<button (click)="onAddPost()">Save</button>
+<p>{{ values }}</p>
