@@ -1,4 +1,26 @@
-<textarea (keyup)="onKey($event)" rows="6" [value]="'test'"></textarea>
+<!-- <textarea rows="6" [value]="'avocado'" #postInput></textarea>
+<textarea rows="6" [(ngModel)]="newPost"></textarea>
 <hr />
-<button (click)="onAddPost()">Save</button>
-<p>{{ values }}</p>
+<p>{{ newPost }}</p>
+-->
+
+<mat-card>
+  <form class="example-form">
+    <mat-form-field class="input-container" appearance="fill">
+      <mat-label>Favorite food</mat-label>
+      <input matInput placeholder="Ex. Pizza" value="Sushi" />
+    </mat-form-field>
+  </form>
+</mat-card>
+
+<mat-card>
+  <mat-form-field class="textarea-container" appearance="fill">
+    <mat-label>Leave a comment</mat-label>
+    <textarea
+      [(ngModel)]="newPost"
+      matInput
+      placeholder="Ex. It makes me feel..."
+    ></textarea>
+  </mat-form-field>
+  <button mat-raised-button color="accent" (click)="onAddPost()">Save</button>
+</mat-card>

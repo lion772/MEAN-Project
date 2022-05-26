@@ -3,22 +3,18 @@ import { Component } from '@angular/core';
 @Component({
   selector: 'app-post-create',
   templateUrl: './post-create.component.html',
+  styleUrls: ['./post-create.component.css'],
 })
 export class PostCreateComponent {
-  values: string = '';
-  //@HostListener('click', ['$event']) onClick(event) {
-  //  console.log('component is clicked');
-  //  console.log(event);
-  // }
+  newPost: string = '';
 
   onAddPost() {
     console.log('save button clicked');
-    console.log(this.values);
+    console.log(this.newPost);
   }
 
   onKey(event: any) {
-    // without type info
-    this.values += event.target.value;
-    // console.log(this.values);
+    //this.newPost += event.target.value;
+    // console.log(this.newPost);
   }
 }
