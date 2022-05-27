@@ -1,0 +1,10 @@
+mat-card {
+  margin-top: 1rem;
+}
+
+.info-text {
+  text-align: center;
+  margin-top: 3rem;
+  font-size: 20px;
+  text-transform: uppercase;
+}
