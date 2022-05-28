@@ -5,18 +5,28 @@
 -->
 
 <mat-card>
-  <mat-form-field class="input-container" type="text" appearance="fill">
-    <mat-label>Favorite food</mat-label>
-    <input [(ngModel)]="enteredTitle" matInput placeholder="Ex. Pizza" />
-  </mat-form-field>
+  <form (submit)="onAddPost(postForm)" #postForm="ngForm">
+    <mat-form-field class="input-container">
+      <mat-label>Favorite food</mat-label>
+      <input
+        name="title"
+        type="text"
+        appearance="fill"
+        ngModel
+        matInput
+        placeholder="Ex. Pizza"
+      />
+    </mat-form-field>
 
-  <mat-form-field class="textarea-container" appearance="fill">
-    <mat-label>Leave a comment</mat-label>
-    <textarea
-      [(ngModel)]="enteredContent"
-      matInput
-      placeholder="Ex. It makes me feel..."
-    ></textarea>
-  </mat-form-field>
-  <button mat-raised-button color="accent" (click)="onAddPost()">Save</button>
+    <mat-form-field class="textarea-container" appearance="fill">
+      <mat-label>Leave a comment</mat-label>
+      <textarea
+        name="content"
+        ngModel
+        matInput
+        placeholder="Ex. It makes me feel..."
+      ></textarea>
+    </mat-form-field>
+    <button type="submit" mat-raised-button color="accent">Save</button>
+  </form>
 </mat-card>
