@@ -13,7 +13,9 @@ export class PostCreateComponent {
   @Output() postCreated = new EventEmitter<Post>();
 
   onAddPost(postForm: NgForm) {
-    console.log(postForm);
+    if (postForm.invalid) {
+      return;
+    }
     const post: Post = {
       title: postForm.value.title,
       content: postForm.value.content,

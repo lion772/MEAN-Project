@@ -10,12 +10,15 @@
       <mat-label>Favorite food</mat-label>
       <input
         name="title"
-        type="text"
-        appearance="fill"
         ngModel
         matInput
+        #title="ngModel"
+        type="text"
+        appearance="fill"
         placeholder="Ex. Pizza"
+        required
       />
+      <mat-error *ngIf="title.invalid">Please enter a post title</mat-error>
     </mat-form-field>
 
     <mat-form-field class="textarea-container" appearance="fill">
@@ -24,8 +27,11 @@
         name="content"
         ngModel
         matInput
+        #content="ngModel"
         placeholder="Ex. It makes me feel..."
+        required
       ></textarea>
+      <mat-error *ngIf="content.invalid">Please enter a post content</mat-error>
     </mat-form-field>
     <button type="submit" mat-raised-button color="accent">Save</button>
   </form>
