@@ -3,6 +3,7 @@
 //own type, to force a certain object to look like sth.
 
 export interface Post {
+  id: string;
   title: string;
   content: string;
 }
