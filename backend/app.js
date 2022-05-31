@@ -1,7 +1,11 @@
 const express = require("express");
 const app = express();
 const bodyParser = require("body-parser");
+
 const { MongoClient, ServerApiVersion } = require("mongodb");
+const Post = require("./models/post");
+const TOKEN = process.env.MONGODB_PASSWORD;
+console.log(process.env.MONGODB_PASSWORD);
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -20,7 +24,11 @@ app.use((req, res, next) => {
 });
 
 app.post("/api/posts", (req, res, next) => {
-  const post = req.body;
+  const post = new Post({
+    title: req.body.title,
+    content: req.body.content,
+  });
+  console.log(post);
   res.status(201).json({ message: "Post added successfully" });
 });
 
@@ -45,8 +53,7 @@ app.get("/api/posts", (req, res, next) => {
 
 module.exports = app;
 
-const uri =
-  "mongodb+srv://Will:<password>@cluster0.xe1fe.mongodb.net/?retryWrites=true&w=majority";
+const uri = `mongodb+srv://Will:${TOKEN}@cluster0.xe1fe.mongodb.net/?retryWrites=true&w=majority`;
 const client = new MongoClient(uri, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
