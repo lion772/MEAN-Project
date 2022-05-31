@@ -1,11 +1,23 @@
 const express = require("express");
-const app = express();
 const bodyParser = require("body-parser");
-
+const mongoose = require("mongoose");
 const { MongoClient, ServerApiVersion } = require("mongodb");
 const Post = require("./models/post");
 const TOKEN = process.env.MONGODB_PASSWORD;
-console.log(process.env.MONGODB_PASSWORD);
+console.log(TOKEN);
+
+mongoose
+  .connect(
+    `mongodb+srv://Will:${TOKEN}@cluster0.xe1fe.mongodb.net/?retryWrites=true&w=majority`
+  )
+  .then(() => {
+    console.log("Connected to MongoDB!");
+  })
+  .catch((err) => {
+    console.log(err);
+  });
+
+const app = express();
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
