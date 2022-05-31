@@ -8,7 +8,7 @@ console.log(TOKEN);
 
 mongoose
   .connect(
-    `mongodb+srv://Will:${TOKEN}@cluster0.xe1fe.mongodb.net/?retryWrites=true&w=majority`
+    `mongodb+srv://Will:${TOKEN}@cluster0.xe1fe.mongodb.net/node-angular?retryWrites=true&w=majority`
   )
   .then(() => {
     console.log("Connected to MongoDB!");
@@ -40,7 +40,8 @@ app.post("/api/posts", (req, res, next) => {
     title: req.body.title,
     content: req.body.content,
   });
-  console.log(post);
+  post.save();
+  console.log(`Posts here: ${post}`);
   res.status(201).json({ message: "Post added successfully" });
 });
 
@@ -65,14 +66,14 @@ app.get("/api/posts", (req, res, next) => {
 
 module.exports = app;
 
-const uri = `mongodb+srv://Will:${TOKEN}@cluster0.xe1fe.mongodb.net/?retryWrites=true&w=majority`;
+/* const uri = `mongodb+srv://Will:${TOKEN}@cluster0.xe1fe.mongodb.net/?retryWrites=true&w=majority`;
 const client = new MongoClient(uri, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
   serverApi: ServerApiVersion.v1,
 });
 client.connect((err) => {
-  const collection = client.db("test").collection("devices");
+  const collection = client.db("node-angular").collection("devices");
   // perform actions on the collection object
   client.close();
-});
+}); */
