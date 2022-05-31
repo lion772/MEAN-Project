@@ -1,6 +1,7 @@
 const express = require("express");
 const app = express();
 const bodyParser = require("body-parser");
+const { MongoClient, ServerApiVersion } = require("mongodb");
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -44,10 +45,15 @@ app.get("/api/posts", (req, res, next) => {
 
 module.exports = app;
 
-/* app.get("/", function (req, res) {
-  res.send("Server working!");
-}); */
-
-/* app.listen(process.env.PORT || port, () => {
-  console.log(`Example app listening on port ${port}`);
-}); */
+const uri =
+  "mongodb+srv://Will:<password>@cluster0.xe1fe.mongodb.net/?retryWrites=true&w=majority";
+const client = new MongoClient(uri, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  serverApi: ServerApiVersion.v1,
+});
+client.connect((err) => {
+  const collection = client.db("test").collection("devices");
+  // perform actions on the collection object
+  client.close();
+});
