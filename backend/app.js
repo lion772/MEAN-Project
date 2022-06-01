@@ -46,22 +46,17 @@ app.post("/api/posts", (req, res, next) => {
 });
 
 app.get("/api/posts", (req, res, next) => {
-  const posts = [
-    {
-      id: "daushiashia",
-      title: "Mango",
-      content: "Yellow and red",
-    },
-    {
-      id: "eiu21rhi1ru",
-      title: "Avocado",
-      content: "Green",
-    },
-  ];
-  res.status(200).send({
-    message: "OK",
-    posts: posts,
-  });
+  Post.find()
+    .then((result) => {
+      console.log(result);
+      res.status(200).send({
+        message: "OK",
+        posts: result,
+      });
+    })
+    .catch((error) => {
+      console.log(error);
+    });
 });
 
 module.exports = app;
