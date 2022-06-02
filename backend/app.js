@@ -40,9 +40,16 @@ app.post("/api/posts", (req, res, next) => {
     title: req.body.title,
     content: req.body.content,
   });
-  post.save();
-  console.log(`Posts here: ${post}`);
-  res.status(201).json({ message: "Post added successfully" });
+  post.save().then(() => {
+    Post.find().then((posts) => {
+      console.log(`Posts here: ${posts}`);
+      res
+        .status(201)
+        .json({ message: "Post added successfully", posts: posts });
+    });
+  });
+
+  /* */
 });
 
 app.get("/api/posts", (req, res, next) => {
@@ -59,16 +66,17 @@ app.get("/api/posts", (req, res, next) => {
     });
 });
 
-module.exports = app;
-
-/* const uri = `mongodb+srv://Will:${TOKEN}@cluster0.xe1fe.mongodb.net/?retryWrites=true&w=majority`;
-const client = new MongoClient(uri, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-  serverApi: ServerApiVersion.v1,
+app.delete("/api/posts/:id", (req, res, next) => {
+  postId = req.params.id;
+  console.log(`ID: ${postId}`);
+  Post.deleteOne({ _id: postId })
+    .then((result) => {
+      console.log(`result post deleted: ${result}`);
+      res.status(200).json({ message: "Post deleted successfully" });
+    })
+    .catch((error) => {
+      console.log("Couldn't delete post");
+    });
 });
-client.connect((err) => {
-  const collection = client.db("node-angular").collection("devices");
-  // perform actions on the collection object
-  client.close();
-}); */
+
+module.exports = app;
