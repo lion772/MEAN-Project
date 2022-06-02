@@ -55,7 +55,7 @@ app.post("/api/posts", (req, res, next) => {
 app.get("/api/posts", (req, res, next) => {
   Post.find()
     .then((result) => {
-      console.log(result);
+      console.log(`Get method ${result}`);
       res.status(200).send({
         message: "OK",
         posts: result,
@@ -71,8 +71,12 @@ app.delete("/api/posts/:id", (req, res, next) => {
   console.log(`ID: ${postId}`);
   Post.deleteOne({ _id: postId })
     .then((result) => {
-      console.log(`result post deleted: ${result}`);
-      res.status(200).json({ message: "Post deleted successfully" });
+      Post.find().then((result) => {
+        console.log(`result post deleted: ${result}`);
+        res
+          .status(200)
+          .json({ message: "Post deleted successfully", posts: result });
+      });
     })
     .catch((error) => {
       console.log("Couldn't delete post");

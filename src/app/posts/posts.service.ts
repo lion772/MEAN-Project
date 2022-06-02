@@ -44,9 +44,20 @@ export class PostsService {
         'http://localhost:3000/api/posts',
         post
       )
+      .pipe(
+        map((response) => {
+          return response.posts.map((post) => {
+            return {
+              id: post._id,
+              title: post.title,
+              content: post.content,
+            };
+          });
+        })
+      )
       .subscribe((responseData) => {
-        console.log(responseData.message, responseData.posts);
-        this.posts = [...responseData.posts];
+        console.log(responseData);
+        this.posts = [...responseData];
         this.postsUpdated.next([...this.posts]);
       });
     //it pushes and emits a new value
@@ -54,7 +65,20 @@ export class PostsService {
 
   deletePost(postId: string) {
     this.http
-      .delete<{ message: string }>(`http://localhost:3000/api/posts/${postId}`)
+      .delete<{ message: string; posts: any }>(
+        `http://localhost:3000/api/posts/${postId}`
+      )
+      .pipe(
+        map((responseData) => {
+          return responseData.posts.map((post) => {
+            return {
+              id: post._id,
+              title: post.title,
+              content: post.content,
+            };
+          });
+        })
+      )
       .subscribe((data) => {
         const updatedPosts = this.posts.filter((post) => post.id !== postId);
         this.posts = updatedPosts;
