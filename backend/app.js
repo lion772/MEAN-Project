@@ -67,9 +67,8 @@ app.get("/api/posts", (req, res, next) => {
 });
 
 app.delete("/api/posts/:id", (req, res, next) => {
-  postId = req.params.id;
-  console.log(`ID: ${postId}`);
-  Post.deleteOne({ _id: postId })
+  console.log(`ID: ${req.params.id}`);
+  Post.deleteOne({ _id: req.params.id })
     .then((result) => {
       Post.find().then((result) => {
         console.log(`result post deleted: ${result}`);
@@ -83,4 +82,22 @@ app.delete("/api/posts/:id", (req, res, next) => {
     });
 });
 
+app.put("/api/posts/:id", (req, res) => {
+  console.log(req.params.id);
+
+  Post.put(req.params.id);
+});
+
 module.exports = app;
+
+const uri = `mongodb+srv://Will:${TOKEN}@cluster0.xe1fe.mongodb.net/?retryWrites=true&w=majority`;
+const client = new MongoClient(uri, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  serverApi: ServerApiVersion.v1,
+});
+client.connect((err) => {
+  const collection = client.db("test").collection("devices");
+  // perform actions on the collection object
+  client.close();
+});

@@ -1,13 +1,8 @@
-<!-- <textarea rows="6" [value]="'avocado'" #postInput></textarea>
-<textarea rows="6" [(ngModel)]="newPost"></textarea>
-<hr />
-<p>{{ newPost }}</p>
--->
-
 <mat-card>
   <form (submit)="onAddPost(postForm)" #postForm="ngForm">
     <mat-form-field class="input-container">
       <mat-label>Favorite food</mat-label>
+      <div *ngIf="postId === 'create'"></div>
       <input
         name="title"
         ngModel
@@ -15,6 +10,18 @@
         #title="ngModel"
         type="text"
         appearance="fill"
+        placeholder="Ex. Pizza"
+        required
+      />
+      <div *ngIf="postId === 'edit'"></div>
+      <input
+        name="title"
+        ngModel
+        matInput
+        #title="ngModel"
+        type="text"
+        appearance="fill"
+        value="{{ editContent }}"
         placeholder="Ex. Pizza"
         required
       />
