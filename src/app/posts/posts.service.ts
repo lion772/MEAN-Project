@@ -63,6 +63,15 @@ export class PostsService {
     //it pushes and emits a new value
   }
 
+  updatePost(id: string, title: string, content: string) {
+    const post: Post = { id: id, title: title, content: content };
+    this.http
+      .put<{ message: string }>(`http://localhost:3000/api/posts/${id}`, post)
+      .subscribe((responseData) => {
+        console.log('Response from put request', responseData);
+      });
+  }
+
   deletePost(postId: string) {
     this.http
       .delete<{ message: string; posts: any }>(
@@ -84,6 +93,10 @@ export class PostsService {
         this.posts = updatedPosts;
         this.postsUpdated.next([...this.posts]);
       });
+  }
+
+  getPost(id: string) {
+    return { ...this.posts.find((post) => post.id === id) };
   }
 }
 

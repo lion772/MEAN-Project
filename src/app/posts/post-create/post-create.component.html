@@ -2,26 +2,13 @@
   <form (submit)="onAddPost(postForm)" #postForm="ngForm">
     <mat-form-field class="input-container">
       <mat-label>Favorite food</mat-label>
-      <div *ngIf="postId === 'create'"></div>
       <input
         name="title"
-        ngModel
+        [ngModel]="post.title"
         matInput
         #title="ngModel"
         type="text"
         appearance="fill"
-        placeholder="Ex. Pizza"
-        required
-      />
-      <div *ngIf="postId === 'edit'"></div>
-      <input
-        name="title"
-        ngModel
-        matInput
-        #title="ngModel"
-        type="text"
-        appearance="fill"
-        value="{{ editContent }}"
         placeholder="Ex. Pizza"
         required
       />
@@ -32,7 +19,7 @@
       <mat-label>Leave a comment</mat-label>
       <textarea
         name="content"
-        ngModel
+        [ngModel]="post.content"
         matInput
         #content="ngModel"
         placeholder="Ex. It makes me feel..."

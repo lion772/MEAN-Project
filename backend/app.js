@@ -5,10 +5,9 @@ const { MongoClient, ServerApiVersion } = require("mongodb");
 const Post = require("./models/post");
 const TOKEN = process.env.MONGODB_PASSWORD;
 console.log(TOKEN);
-
 mongoose
   .connect(
-    `mongodb+srv://Will:${TOKEN}@cluster0.xe1fe.mongodb.net/node-angular?retryWrites=true&w=majority`
+    `mongodb+srv://lion772:${TOKEN}@cluster1.bne25.mongodb.net/?retryWrites=true&w=majority`
   )
   .then(() => {
     console.log("Connected to MongoDB!");
@@ -83,21 +82,18 @@ app.delete("/api/posts/:id", (req, res, next) => {
 });
 
 app.put("/api/posts/:id", (req, res) => {
-  console.log(req.params.id);
+  const id = req.params.id;
+  const post = new Post({
+    _id: id,
+    title: req.body.title,
+    content: req.body.content,
+  });
+  console.log("PUT ROUTE: ", id);
 
-  Post.put(req.params.id);
+  Post.updateOne({ _id: id }, post).then((result) => {
+    console.log("Post updated successfully", result);
+    res.status(200).json({ message: "Updated successfully" });
+  });
 });
 
 module.exports = app;
-
-const uri = `mongodb+srv://Will:${TOKEN}@cluster0.xe1fe.mongodb.net/?retryWrites=true&w=majority`;
-const client = new MongoClient(uri, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-  serverApi: ServerApiVersion.v1,
-});
-client.connect((err) => {
-  const collection = client.db("test").collection("devices");
-  // perform actions on the collection object
-  client.close();
-});
